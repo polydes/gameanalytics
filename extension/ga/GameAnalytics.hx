@@ -176,7 +176,7 @@ class GameAnalytics {
 
     #if android
       initialiseWithGameKeyAndroid();
-    #elseif (cpp && mobile && !android)
+    #elseif  ios
       initialiseWithGameKeyiOS();
     #elseif html5
       initialiseWithGameKeyJS();
@@ -188,7 +188,7 @@ class GameAnalytics {
     configureSdkVersion();
     configureEngineVersion();
 
-    #if(cpp && mobile && !android)
+    #if ios
     initGA(gameKey,secretKey);
     #end
   }
@@ -225,7 +225,7 @@ class GameAnalytics {
 
   private static function enableVerboseLog()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     enableVerboseGA(enableVerboseB);
     #end
     #if android
@@ -252,7 +252,7 @@ class GameAnalytics {
 
   private static function enableInfoLog()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     enableInfoGA(enableInfoB);
     #end
     #if android
@@ -279,7 +279,7 @@ class GameAnalytics {
 
   private static function configUserId()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     configureUserIdGA(user_id);
     #end
     #if android
@@ -294,7 +294,7 @@ class GameAnalytics {
   private static function configBuild(build:String)
   {
     GameAnalytics.build = build;
-    #if(cpp && mobile && !android)
+    #if ios
     configureBuildGA(build);
     #end
     #if android
@@ -314,7 +314,7 @@ class GameAnalytics {
 
   private static function availableResourceCurrencies()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     configureAvailableResourceCurrenciesGA(currencies);
     #end
     #if android
@@ -335,7 +335,7 @@ class GameAnalytics {
 
   private static function availableResourceItemTypes()
   {
-  #if(cpp && mobile && !android)
+  #if ios
   configureAvailableResourceItemTypesGA(itemTypes);
   #end
   #if android
@@ -356,7 +356,7 @@ class GameAnalytics {
 
   private static function availableCustomDimensions01()
   {
-  #if(cpp && mobile && !android)
+  #if ios
   configureAvailableCustomDimensions01GA(customDimensions01);
   #end
   #if android
@@ -377,7 +377,7 @@ class GameAnalytics {
 
   private static function availableCustomDimensions02()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     configureAvailableCustomDimensions02GA(customDimensions02);
     #end
     #if android
@@ -398,7 +398,7 @@ class GameAnalytics {
 
   private static function availableCustomDimensions03()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     configureAvailableCustomDimensions03GA(customDimensions03);
     #end
     #if android
@@ -419,7 +419,7 @@ class GameAnalytics {
 
   private static function setCustomDim01()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     setCustomDimension01GA(customDimension);
     #end
     #if android
@@ -439,7 +439,7 @@ class GameAnalytics {
 
   private static function setCustomDim02()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     setCustomDimension02GA(customDimension);
     #end
     #if android
@@ -459,7 +459,7 @@ class GameAnalytics {
 
   private static function setCustomDim03()
   {
-  #if(cpp && mobile && !android)
+  #if ios
   setCustomDimension03GA(customDimension);
   #end
   #if android
@@ -479,7 +479,7 @@ class GameAnalytics {
 
   private static function genderGA()
   {
-  #if(cpp && mobile && !android)
+  #if ios
     var gstr = GADef.genderToString(gender);
     setGenderGA(gstr);
   #end
@@ -502,7 +502,7 @@ class GameAnalytics {
 
   private static function birthYearGA()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     setBirthYearGA(birthYear);
     #end
     #if android
@@ -523,7 +523,7 @@ class GameAnalytics {
 
   private static function designEvent()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     addDesignEventGA(designEventId);
     #end
     #if android
@@ -547,7 +547,7 @@ class GameAnalytics {
 
   private static function designEventWithAmount()
   {
-  #if(cpp && mobile && !android)
+  #if ios
   addDesignEventWithAmountGA(designEventId, amount);
   #end
   #if android
@@ -588,7 +588,7 @@ class GameAnalytics {
 
   private static function businessEvent()
   {
-  #if(cpp && mobile && !android)
+  #if ios
   setBusinessEventStringsGA(currency,itemType,itemId,cartType,receipt);
   setBusinessEventIntGA(amountInCents);
   addBusinessEventGA();
@@ -617,7 +617,7 @@ class GameAnalytics {
 
   private static function resourceEvent()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     var ft:Int = cast flowType;
     addResourceEventGA(ft, currency, amount, itemType, itemId);
     #end
@@ -652,7 +652,7 @@ class GameAnalytics {
 
   private static function progressionEvent()
   {
-    #if(cpp && mobile && !android)
+    #if ios
     addProgressionEventGA(status, progression01, progression02, progression03, score);
     #end
     #if android
@@ -675,7 +675,7 @@ class GameAnalytics {
 
   private static function errorEvent()
   {
-    #if(cpp && mobile && !android)
+    #if ios
       var sev:Int = cast severity;
       addErrorEventGA(sev, message);
     #end
@@ -695,7 +695,7 @@ class GameAnalytics {
   private static function configureSdkVersion()
   {
     var _version:String = "stencyl " + sdk_version;
-    #if(cpp && mobile && !android)
+    #if ios
     configureSdkVersionGA(_version);
     #end
     #if android
@@ -721,7 +721,7 @@ class GameAnalytics {
     engineVersion = "stencyl 3.2.0";
     #end
 
-    #if(cpp && mobile && !android)
+    #if ios
     configureEngineVersionGA(engineVersion);
     #end
     #if android
@@ -736,7 +736,7 @@ class GameAnalytics {
   //Manual session handling
   public static function setEnableManualSessionHandling()
   {
-    #if(cpp && mobile && !android)
+    #if ios
       setEnabledManualSessionHandlingGA();
     #end
     #if android
@@ -750,7 +750,7 @@ class GameAnalytics {
 
   public static function startSession()
   {
-    #if(cpp && mobile && !android)
+    #if ios
       startSessionGA();
     #end
     #if android
@@ -764,7 +764,7 @@ class GameAnalytics {
 
   public static function endSession()
   {
-    #if(cpp && mobile && !android)
+    #if ios
       endSessionGA();
     #end
     #if android
@@ -779,7 +779,7 @@ class GameAnalytics {
   //Command Centre
   public static function isCommandCenterReady()
   {
-    #if(cpp && mobile && !android)
+    #if ios
       ready = isCommandCenterReadyGA();
     #end
     #if android
@@ -808,7 +808,7 @@ class GameAnalytics {
   private static function _getCommandCenterValueAsString()
   {
     var ret:String = "";
-    #if(cpp && mobile && !android)
+    #if ios
       ret = getCommandCenterValueAsStringGA(GameAnalytics.configKey);
     #end
     #if android
@@ -842,7 +842,7 @@ class GameAnalytics {
   private static function _getCommandCenterValueAsStringWithDefVal()
   {
     var ret:String = "";
-    #if(cpp && mobile && !android)
+    #if ios
     ret = getCommandCenterValueAsStringWithDefValGA(GameAnalytics.configKey,GameAnalytics.configDefaultValue);
     #end
     #if android
@@ -867,7 +867,7 @@ class GameAnalytics {
   //Utility
   private static function printMessage(message:String)
   {
-    #if(cpp && mobile && !android)
+    #if ios
       printGA(message);
     #end
   }
