@@ -4,3 +4,4 @@ author=Cristian Bercu
 website=https://gameanalytics.com/
 version=1.0.0
 compatibility=all
+dependencies=stencyl-4.1.0

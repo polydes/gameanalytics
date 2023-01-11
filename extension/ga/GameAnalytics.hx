@@ -163,17 +163,7 @@ class GameAnalytics
 
   private static function configureEngineVersion()
   {
-    var engineVersion:String;
-
-    #if(stencyl >= "3.5.0")
-    engineVersion = "stencyl " + @:privateAccess DefineMacro.getDefine("stencyl");
-    #elseif ((openfl >= "3.3.8") && (openfl < "4.0.0"))
-    engineVersion = "stencyl 3.4.0";
-    #elseif ((openfl >= "3.3.2") && (openfl < "3.3.8"))
-    engineVersion = "stencyl 3.3.2";
-    #else
-    engineVersion = "stencyl 3.2.0";
-    #end
+    var engineVersion = "stencyl " + @:privateAccess DefineMacro.getDefine("stencyl");
 
     callFunction("configureGameEngineVersion", [engineVersion]);
   }
