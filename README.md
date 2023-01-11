@@ -27,16 +27,6 @@ If you have any issues or feedback regarding the SDK, please contact our friendl
 >   
 > **JAVASCRIPT:**   
 > SDK V3.1.2
-> Use of GameAnalytics Javascript
->   
->   Add this code to your HTML template
-
-	<!-- GameAnalytics -->
-	<script>
-		window.GameAnalytics=window.GameAnalytics||function(){(GameAnalytics.q=GameAnalytics.q||[]).push(arguments)};
-	</script>
-	<script async src='http://download.gameanalytics.com/js/GameAnalytics-3.1.2.min.js'></script>
-	<!-- End GameAnalytics -->
 
 Changelog
 ---------

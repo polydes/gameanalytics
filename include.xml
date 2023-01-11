@@ -14,4 +14,9 @@
 		<dependency name="gameanalytics" path="dependencies/gameanalytics"/>
 	</section>
 
+	<!--HTML5-->
+	<section if="html5">
+		<dependency path="dependencies/ga-js-sdk.js" embed="true" />
+	</section>
+
 </project>
