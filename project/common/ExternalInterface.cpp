@@ -21,23 +21,23 @@ using namespace std;
 // Glues Haxe to native code.
 //--------------------------------------------------
 
-void initGA(value gameKey, value secretKey)
+void initializeGA(value gameKey, value secretKey)
 {
 	initializeWithGameKey(val_string(gameKey), val_string(secretKey));
 }
 DEFINE_PRIM(initGA, 2);
 
-void enableVerboseGA(value enable)
+void setEnabledVerboseLogGA(value enable)
 {
-	enableVerboseLog(val_bool(enable));
+	setEnabledVerboseLog(val_bool(enable));
 }
-DEFINE_PRIM(enableVerboseGA, 1);
+DEFINE_PRIM(setEnabledVerboseLogGA, 1);
 
-void enableInfoGA(value enable)
+void setEnabledInfoLogGA(value enable)
 {
-	enableInfoLog(val_bool(enable));
+	setEnabledInfoLog(val_bool(enable));
 }
-DEFINE_PRIM(enableInfoGA,1);
+DEFINE_PRIM(setEnabledInfoLogGA,1);
 
 void configureUserIdGA(value user_id)
 {
@@ -100,11 +100,11 @@ void setCustomDimension03GA(value dimension)
 DEFINE_PRIM(setCustomDimension03GA,1);
 
 //Events
-void addDesignEventGA(value eventId)
+void addDesignEventWithEventIdGA(value eventId)
 {
-	addDesignEvent(val_string(eventId));
+	addDesignEventWithEventId(val_string(eventId));
 }
-DEFINE_PRIM(addDesignEventGA,1);
+DEFINE_PRIM(addDesignEventWithEventIdGA,1);
 
 void addDesignEventWithAmountGA(value eventId, value amount)
 {
@@ -112,35 +112,11 @@ void addDesignEventWithAmountGA(value eventId, value amount)
 }
 DEFINE_PRIM(addDesignEventWithAmountGA,2);
 
-//Business event
-value currency;
-value amount;
-value itemType;
-value itemId;
-value cartType;
-value receipt;
-
-void setBusinessEventStrings(value _currency, value _itemType, value _itemId, value _cartType, value _receipt)
+void addBusinessEventGA(value currency, value amount, value itemType, value itemId, value cartType, value receipt)
 {
-	currency = _currency;
-	itemType = _itemType;
-	itemId = _itemId;
-	cartType = _cartType;
-	receipt = _receipt;
+	addBusinessEvent(val_string(currency), val_int(amount), val_string(itemType), val_string(itemId), val_string(cartType), val_string(receipt));
 }
-DEFINE_PRIM(setBusinessEventStrings,5);
-
-void setBusinessEventInteger(value _amount)
-{
-	amount = _amount;
-}
-DEFINE_PRIM(setBusinessEventInteger,1);
-
-void addBusinessEventGA()
-{
-	addBusinessEvent(val_string(currency), val_int(amount), val_string(itemId), val_string(itemType), val_string(cartType), val_string(receipt));
-}
-DEFINE_PRIM(addBusinessEventGA,0);
+DEFINE_PRIM(addBusinessEventGA,6);
 
 void addResourceEventGA(value flowType, value currency, value amount, value itemType, value itemId)
 {
@@ -174,24 +150,24 @@ DEFINE_PRIM(setBirthYearGA,1);
 //-----------------------------
 
 //State
-void configureSdkVersionGA(value sdkVersion)
+void configureSdkGameEngineVersionGA(value sdkVersion)
 {
 	configureSdkVersion(val_string(sdkVersion));
 }
-DEFINE_PRIM(configureSdkVersionGA,1);
+DEFINE_PRIM(configureSdkGameEngineVersionGA,1);
 
-void configureEngineVersionGA(value engineVersion)
+void configureGameEngineVersionGA(value engineVersion)
 {
 	configureEngineVersion(val_string(engineVersion));
 }
-DEFINE_PRIM(configureEngineVersionGA,1);
+DEFINE_PRIM(configureGameEngineVersionGA,1);
 
 //Manual session handling
-void setEnabledManualSessionHandlingGA()
+void setEnabledManualSessionHandlingGA(value enable)
 {
-	setEnabledManualSessionHandling();
+	setEnabledManualSessionHandling(val_bool(enable));
 }
-DEFINE_PRIM(setEnabledManualSessionHandlingGA,0);
+DEFINE_PRIM(setEnabledManualSessionHandlingGA,1);
 
 void startSessionGA()
 {

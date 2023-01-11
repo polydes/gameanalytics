@@ -1,26 +1,20 @@
 package extension.ga;
 
 #if cpp
-        import cpp.Lib;
-        import Type;
-#elseif neko
-        import neko.Lib;
+import cpp.Lib;
+import Type;
 #else
-        #if android
-                import openfl.Lib;
-        #end
+#if android
+import openfl.Lib;
+#end
 #end
 
-#if openfl_legacy
-import openfl.utils.JNI;
-#else
 import lime.system.JNI;
-#end
 
+import extension.ga._internal.DefineMacro;
 #if html5
 import extension.ga.js.GameAnalyticsJS;
 #end
-
 import extension.ga.GADef;
 
 #if ios
@@ -28,695 +22,143 @@ import extension.ga.GADef;
 //This is just here to prevent the otherwise indirectly referenced native code from bring stripped at link time.
 @:cppFileCode('extern "C" int gameanalytics_register_prims();void extension_gameanalytics_link(){gameanalytics_register_prims();}')
 #end
-class GameAnalytics {
+class GameAnalytics
+{
   //versioning
   private static inline var sdk_version:String = "3.0.1"; //GameAnalytics SDK version
 
-  //Settings cache
-  private static var gameKey:String;
-  private static var secretKey:String;
-  private static var user_id:String;
-  private static var build:String;
-  private static var enableVerboseB:Bool;
-  private static var enableInfoB:Bool;
-  private static var gender:GAGender;
-  private static var birthYear:Int;
-
-  //Custom dimensions
-  private static var customDimensions01:String; //configured before initialisation
-  private static var customDimensions02:String; //configured before initialisation
-  private static var customDimensions03:String; //configured before initialisation
-  private static var customDimension:String; //used in all setters
-
-  //Events cache
-
-  //common param
-  private static var amount:Float; //shared by design and resource events
-  private static var itemType:String; //shared by design and business events
-  private static var itemId:String; //shared by design and business events
-  private static var currency:String; //shared by business and resource events
-
-  //design
-  private static var designEventId:String;
-  //business
-  private static var cartType:String;
-  private static var receipt:String;
-  private static var store:String;
-  private static var signature:String;
-  private static var amountInCents:Int;
-  //resource
-  private static var currencies:String; //configured before initialisation
-  private static var itemTypes:String; //configured before initialisation
-  private static var flowType:GAFlowType;
-  //progression
-  private static var progression01:String;
-  private static var progression02:String;
-  private static var progression03:String;
-  private static var status:Int;
-  private static var score:Int;
-  //error
-  private static var severity:GAErrorSeverity;
-  private static var message:String;
-  //CC
-  private static var ready:Bool = false;
-  private static var configKey:String;
-  private static var configDefaultValue:String;
-  private static var configValue:String;
-
-        #if ios
-                private static var initGA = Lib.load("gameanalytics", "initGA", 2);
-                private static var enableVerboseGA = Lib.load("gameanalytics","enableVerboseGA",1);
-                private static var enableInfoGA = Lib.load("gameanalytics","enableInfoGA",1);
-                private static var configureUserIdGA = Lib.load("gameanalytics","configureUserIdGA",1);
-                private static var configureBuildGA = Lib.load("gameanalytics","configureBuildGA",1);
-                private static var configureAvailableResourceCurrenciesGA = Lib.load("gameanalytics","configureAvailableResourceCurrenciesGA",1);
-                private static var configureAvailableResourceItemTypesGA = Lib.load("gameanalytics","configureAvailableResourceItemTypesGA",1);
-                private static var configureAvailableCustomDimensions01GA = Lib.load("gameanalytics","configureAvailableCustomDimensions01GA",1);
-                private static var configureAvailableCustomDimensions02GA = Lib.load("gameanalytics","configureAvailableCustomDimensions02GA",1);
-                private static var configureAvailableCustomDimensions03GA = Lib.load("gameanalytics","configureAvailableCustomDimensions03GA",1);
-                private static var setCustomDimension01GA = Lib.load("gameanalytics","setCustomDimension01",1);
-                private static var setCustomDimension02GA = Lib.load("gameanalytics","setCustomDimension02",1);
-                private static var setCustomDimension03GA = Lib.load("gameanalytics","setCustomDimension03",1);
-                private static var setGenderGA = Lib.load("gameanalytics","setGenderGA",1);
-                private static var setBirthYearGA = Lib.load("gameanalytics","setBirthYearGA",1);
-
-                //events
-                private static var addDesignEventGA = Lib.load("gameanalytics","addDesignEventGA",1);
-                private static var addDesignEventWithAmountGA = Lib.load("gameanalytics","addDesignEventWithAmountGA",2);
-                private static var setBusinessEventStringsGA = Lib.load("gameanalytics","setBusinessEventStrings",5);
-                private static var setBusinessEventIntGA = Lib.load("gameanalytics","setBusinessEventInteger",1);
-                private static var addBusinessEventGA = Lib.load("gameanalytics","addBusinessEventGA",0);
-                private static var addResourceEventGA = Lib.load("gameanalytics","addResourceEventGA",5);
-                private static var addProgressionEventGA = Lib.load("gameanalytics","addProgressionEventGA",5);
-                private static var addErrorEventGA = Lib.load("gameanalytics","addErrorEventGA",2);
-
-                //State
-                private static var configureSdkVersionGA = Lib.load("gameanalytics","configureSdkVersionGA",1);
-                private static var configureEngineVersionGA = Lib.load("gameanalytics","configureEngineVersionGA",1);
-
-                //Manual session handling
-                private static var setEnabledManualSessionHandlingGA = Lib.load("gameanalytics","setEnabledManualSessionHandlingGA",0);
-                private static var startSessionGA = Lib.load("gameanalytics","startSessionGA",0);
-                private static var endSessionGA = Lib.load("gameanalytics","endSessionGA",0);
-
-                //Command Centre
-                private static var isCommandCenterReadyGA = Lib.load("gameanalytics","isCommandCenterReadyGA",0);
-                private static var getCommandCenterValueAsStringGA = Lib.load("gameanalytics","getCommandCenterValueAsStringGA",1);
-                private static var getCommandCenterValueAsStringWithDefValGA = Lib.load("gameanalytics","getCommandCenterValueAsStringWithDefValGA",2);
-
-                //utility
-                private static var printGA = Lib.load("gameanalytics","printGA",1);
-
-        #end
-        #if android
-                private static var initGA:Dynamic;
-                private static var enableVerboseGA:Dynamic;
-                private static var enableInfoGA:Dynamic;
-                private static var configureUserIdGA:Dynamic;
-                private static var configureBuildGA:Dynamic;
-                private static var configureAvailableResourceCurrenciesGA:Dynamic;
-                private static var configureAvailableResourceItemTypesGA:Dynamic;
-                private static var configureAvailableCustomDimensions01GA:Dynamic;
-                private static var configureAvailableCustomDimensions02GA:Dynamic;
-                private static var configureAvailableCustomDimensions03GA:Dynamic;
-                private static var setCustomDimension01GA:Dynamic;
-                private static var setCustomDimension02GA:Dynamic;
-                private static var setCustomDimension03GA:Dynamic;
-                private static var setGenderGA:Dynamic;
-                private static var setBirthYearGA:Dynamic;
-
-                //events
-                private static var addDesignEventGA:Dynamic;
-                private static var addDesignEventWithAmountGA:Dynamic;
-                private static var addBusinessEventGA:Dynamic;
-                private static var addResourceEventGA:Dynamic;
-                private static var addProgressionEventGA:Dynamic;
-                private static var addErrorEventGA:Dynamic;
-
-                //State
-                private static var configureSdkVersionGA:Dynamic;
-                private static var configureEngineVersionGA:Dynamic;
-
-                //Manual session handling
-                private static var setEnabledManualSessionHandlingGA:Dynamic;
-                private static var startSessionGA:Dynamic;
-                private static var endSessionGA:Dynamic;
-
-                //Command center
-                private static var isCommandCenterReadyGA:Dynamic;
-                private static var getIsCommandCenterReadyGA:Dynamic;
-                private static var getCommandCenterValueAsStringGA:Dynamic;
-                private static var getCommandCenterValueAsStringWithDefValGA:Dynamic;
-                private static var getFetchedConfigValueGA:Dynamic;
-          #end
-          #if cpp
-          #end
-          #if mac
-          #end
-
-  public static function initialise(gameKey:String, secretKey:String)
-  {
-    GameAnalytics.gameKey = gameKey;
-    GameAnalytics.secretKey = secretKey;
-
-    #if android
-      initialiseWithGameKeyAndroid();
-    #elseif  ios
-      initialiseWithGameKeyiOS();
-    #elseif html5
-      initialiseWithGameKeyJS();
-    #end
-  }
-
-  private static function initialiseWithGameKeyiOS()
+  public static function initialize(gameKey:String, secretKey:String)
   {
     configureSdkVersion();
     configureEngineVersion();
-
-    #if ios
-    initGA(gameKey,secretKey);
-    #end
+    callFunction("initialize", [gameKey, secretKey]);
   }
 
-  private static function initialiseWithGameKeyAndroid()
+  public static function setEnabledVerboseLog(enable:Bool)
   {
-    configureSdkVersion();
-    configureEngineVersion();
-
-    #if android
-    if(initGA == null)
-    {
-      initGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "initialise", "(Ljava/lang/String;Ljava/lang/String;)V", true);
-    }
-
-    initGA([gameKey, secretKey]);
-    #end
+    callFunction("setEnabledVerboseLog", [enable]);
   }
 
-  private static function initialiseWithGameKeyJS()
+  public static function setEnabledInfoLog(enable:Bool)
   {
-    configureSdkVersion();
-    configureEngineVersion();
-
-    #if(html5)
-        GameAnalyticsJS.GameAnalytics("initialize",
-            gameKey,
-            secretKey);
-    #end
-  }
-
-  public static function enableVerbose(enableVerboseB:Bool)
-  {
-    GameAnalytics.enableVerboseB = enableVerboseB;
-    enableVerboseLog();
-  }
-
-  private static function enableVerboseLog()
-  {
-    #if ios
-    enableVerboseGA(enableVerboseB);
-    #end
-    #if android
-    enableVerboseGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics","enableVerboseLog", "(Ljava/lang/String;)V", true);
-    if(enableVerboseB)
-    {
-    enableVerboseGA(["true"]);
-    }
-    else
-    {
-    enableVerboseGA(["false"]);
-    }
-    #end
-    #if(html5)
-    GameAnalyticsJS.GameAnalytics("setEnabledInfoLog",enableVerboseB);
-    #end
-  }
-
-  public static function enableInfo(enableInfoB:Bool)
-  {
-    GameAnalytics.enableInfoB = enableInfoB;
-    enableInfoLog();
-  }
-
-  private static function enableInfoLog()
-  {
-    #if ios
-    enableInfoGA(enableInfoB);
-    #end
-    #if android
-    enableInfoGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "enableInfoLog", "(Ljava/lang/String;)V", true);
-    if(enableInfoB)
-    {
-    enableInfoGA(["true"]);
-    }
-    else
-    {
-    enableInfoGA(["false"]);
-    }
-    #end
-    #if(html5)
-    GameAnalyticsJS.GameAnalytics("setEnabledInfoLog",enableInfoB);
-    #end
+    callFunction("setEnabledInfoLog", [enable]);
   }
 
   public static function configureUserId(user_id:String)
   {
-    GameAnalytics.user_id = user_id;
-    configUserId();
+    callFunction("configureUserId", [user_id]);
   }
 
-  private static function configUserId()
+  public static function configureBuild(build:String)
   {
-    #if ios
-    configureUserIdGA(user_id);
-    #end
-    #if android
-    configureUserIdGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configUserId", "(Ljava/lang/String;)V", true);
-    configureUserIdGA([user_id]);
-    #end
-    #if(html5)
-    GameAnalyticsJS.GameAnalytics("configureUserId",user_id);
-    #end
+    callFunction("configureBuild", [build]);
   }
 
-  private static function configBuild(build:String)
+  public static function configureAvailableResourceCurrencies(currencies:String)
   {
-    GameAnalytics.build = build;
-    #if ios
-    configureBuildGA(build);
-    #end
-    #if android
-    configureBuildGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureBuild", "(Ljava/lang/String;)V", true);
-    configureBuildGA([build]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("configureBuild",build);
-    #end
+    callFunction("configureAvailableResourceCurrencies", [stringToList(currencies)]);
   }
 
-  public static function configureAvailableResourceCurrencies(_currencies:String)
+  public static function configureAvailableResourceItemTypes(itemTypes:String)
   {
-    GameAnalytics.currencies = _currencies;
-    availableResourceCurrencies();
-  }
-
-  private static function availableResourceCurrencies()
-  {
-    #if ios
-    configureAvailableResourceCurrenciesGA(currencies);
-    #end
-    #if android
-    configureAvailableResourceCurrenciesGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureAvailableResourceCurrencies", "(Ljava/lang/String;)V", true);
-    configureAvailableResourceCurrenciesGA([currencies]);
-    #end
-    #if(html5)
-      var data:Array<String> = currencies.split(',');
-      GameAnalyticsJS.GameAnalytics("configureAvailableResourceCurrencies", data);
-    #end
-  }
-
-  public static function configureAvailableResourceItemTypes(_itemTypes:String)
-  {
-  GameAnalytics.itemTypes = _itemTypes;
-  availableResourceItemTypes();
-  }
-
-  private static function availableResourceItemTypes()
-  {
-  #if ios
-  configureAvailableResourceItemTypesGA(itemTypes);
-  #end
-  #if android
-  configureAvailableResourceItemTypesGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureAvailableResourceItemTypes", "(Ljava/lang/String;)V", true);
-  configureAvailableResourceItemTypesGA([itemTypes]);
-  #end
-  #if(html5)
-    var data:Array<String> = itemTypes.split(',');
-    GameAnalyticsJS.GameAnalytics("configureAvailableResourceItemTypes", data);
-  #end
+    callFunction("configureAvailableResourceItemTypes", [stringToList(itemTypes)]);
   }
 
   public static function configureAvailableCustomDimensions01(customDim:String)
   {
-  GameAnalytics.customDimensions01 = customDim;
-  availableCustomDimensions01();
-  }
-
-  private static function availableCustomDimensions01()
-  {
-  #if ios
-  configureAvailableCustomDimensions01GA(customDimensions01);
-  #end
-  #if android
-  configureAvailableCustomDimensions01GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureAvailableCustomDimensions01", "(Ljava/lang/String;)V", true);
-  configureAvailableCustomDimensions01GA([customDimensions01]);
-  #end
-  #if(html5)
-    var data:Array<String> = itemTypes.split(',');
-    GameAnalyticsJS.GameAnalytics("configureAvailableCustomDimensions01", data);
-  #end
+    callFunction("configureAvailableCustomDimensions01", [stringToList(customDim)]);
   }
 
   public static function configureAvailableCustomDimensions02(customDim:String)
   {
-  GameAnalytics.customDimensions02 = customDim;
-  availableCustomDimensions02();
-  }
-
-  private static function availableCustomDimensions02()
-  {
-    #if ios
-    configureAvailableCustomDimensions02GA(customDimensions02);
-    #end
-    #if android
-    configureAvailableCustomDimensions02GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureAvailableCustomDimensions02", "(Ljava/lang/String;)V", true);
-    configureAvailableCustomDimensions02GA([customDimensions02]);
-    #end
-    #if(html5)
-      var data:Array<String> = itemTypes.split(',');
-      GameAnalyticsJS.GameAnalytics("configureAvailableCustomDimensions02", data);
-    #end
+    callFunction("configureAvailableCustomDimensions02", [stringToList(customDim)]);
   }
 
   public static function configureAvailableCustomDimensions03(customDim:String)
   {
-  GameAnalytics.customDimensions03 = customDim;
-  availableCustomDimensions03();
-  }
-
-  private static function availableCustomDimensions03()
-  {
-    #if ios
-    configureAvailableCustomDimensions03GA(customDimensions03);
-    #end
-    #if android
-    configureAvailableCustomDimensions03GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureAvailableCustomDimensions03", "(Ljava/lang/String;)V", true);
-    configureAvailableCustomDimensions03GA([customDimensions03]);
-    #end
-    #if(html5)
-      var data:Array<String> = itemTypes.split(',');
-      GameAnalyticsJS.GameAnalytics("configureAvailableCustomDimensions03", data);
-    #end
+    callFunction("configureAvailableCustomDimensions03", [stringToList(customDim)]);
   }
 
   public static function setCustomDimension01(customDim:String)
   {
-    GameAnalytics.customDimension = customDim;
-    setCustomDim01();
-  }
-
-  private static function setCustomDim01()
-  {
-    #if ios
-    setCustomDimension01GA(customDimension);
-    #end
-    #if android
-    setCustomDimension01GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "setCustomDimension01", "(Ljava/lang/String;)V", true);
-    setCustomDimension01GA([customDimension]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("setCustomDimension01", customDimension);
-    #end
+    callFunction("setCustomDimension01", [customDim]);
   }
 
   public static function setCustomDimension02(customDim:String)
   {
-    GameAnalytics.customDimension = customDim;
-    setCustomDim02();
-  }
-
-  private static function setCustomDim02()
-  {
-    #if ios
-    setCustomDimension02GA(customDimension);
-    #end
-    #if android
-    setCustomDimension02GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "setCustomDimension02", "(Ljava/lang/String;)V", true);
-    setCustomDimension02GA([customDimension]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("setCustomDimension02", customDimension);
-    #end
+    callFunction("setCustomDimension02", [customDim]);
   }
 
   public static function setCustomDimension03(customDim:String)
   {
-    GameAnalytics.customDimension = customDim;
-    setCustomDim03();
-  }
-
-  private static function setCustomDim03()
-  {
-  #if ios
-  setCustomDimension03GA(customDimension);
-  #end
-  #if android
-  setCustomDimension03GA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "setCustomDimension03", "(Ljava/lang/String;)V", true);
-  setCustomDimension03GA([customDimension]);
-  #end
-  #if(html5)
-    GameAnalyticsJS.GameAnalytics("setCustomDimension03", customDimension);
-  #end
+    callFunction("setCustomDimension03", [customDim]);
   }
 
   public static function setGender(gender:GAGender)
   {
-    GameAnalytics.gender = gender;
-    genderGA();
-  }
-
-  private static function genderGA()
-  {
-  #if ios
-    var gstr = GADef.genderToString(gender);
-    setGenderGA(gstr);
-  #end
-  #if android
-    setGenderGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "setGender", "(I)V", true);
-    var g:Int = cast gender;
-    setGenderGA([g]);
-  #end
-  #if(html5)
-    var gstr = GADef.genderToString(gender);
-    GameAnalyticsJS.GameAnalytics("setGender", gstr);
-  #end
+    callFunction("setGender", [GADef.genderToNative(gender)]);
   }
 
   public static function setBirthYear(birthYear:Int)
   {
-    GameAnalytics.birthYear = birthYear;
-    birthYearGA();
-  }
-
-  private static function birthYearGA()
-  {
-    #if ios
-    setBirthYearGA(birthYear);
-    #end
-    #if android
-    setBirthYearGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "setBirthYear", "(I)V", true);
-    setBirthYearGA([birthYear]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("setBirthYear", birthYear);
-    #end
+    callFunction("setBirthYear", [birthYear]);
   }
 
   //events
   public static function sendDesignEvent(eventId:String)
   {
-    GameAnalytics.designEventId = eventId;
-    designEvent();
-  }
-
-  private static function designEvent()
-  {
-    #if ios
-    addDesignEventGA(designEventId);
+    #if (android || ios)
+    callFunction("addDesignEventWithEventId", [eventId]);
     #end
-    #if android
-    if(addDesignEventGA == null)
-    {
-    addDesignEventGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addDesignEventWithEventId", "(Ljava/lang/String;)V", true);
-    }
-    addDesignEventGA([designEventId]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("addDesignEvent", designEventId);
-    #end
+    callFunction("addDesignEvent", [eventId]);
   }
 
   public static function sendDesignEventWithAmount(eventId:String, amount:Float)
   {
-  GameAnalytics.designEventId = eventId;
-  GameAnalytics.amount = amount;
-  designEventWithAmount();
-  }
-
-  private static function designEventWithAmount()
-  {
-  #if ios
-  addDesignEventWithAmountGA(designEventId, amount);
-  #end
-  #if android
-  if(addDesignEventWithAmountGA == null)
-  {
-  addDesignEventWithAmountGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addDesignEventWithAmountGA", "(Ljava/lang/String;F)V", true);
-  }
-  var args:Array<Dynamic> = [designEventId, amount];
-  addDesignEventWithAmountGA(args);
-  #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("addDesignEvent", designEventId, amount);
+    #if (android || ios)
+    callFunction("addDesignEventWithAmount", [eventId, amount]);
     #end
+    callFunction("addDesignEvent", [eventId, amount]);
   }
 
   public static function sendBusinessEventIOS(currency:String, amountInCents:Int, itemType:String, itemId:String, cartType:String, receipt:String)
   {
-  GameAnalytics.currency = currency;
-  GameAnalytics.amountInCents = amountInCents;
-  GameAnalytics.itemType = itemType;
-  GameAnalytics.itemId = itemId;
-  GameAnalytics.cartType = cartType;
-  GameAnalytics.receipt = receipt;
-  businessEvent();
+    callFunction("addBusinessEvent", [currency, amountInCents, itemType, itemId, cartType, receipt]);
   }
 
   public static function sendBusinessEventAndroid(currency:String, amountInCents:Int, itemType:String, itemId:String, cartType:String, receipt:String, signature:String)
   {
-  GameAnalytics.currency = currency;
-  GameAnalytics.amountInCents = amountInCents;
-  GameAnalytics.itemType = itemType;
-  GameAnalytics.itemId = itemId;
-  GameAnalytics.cartType = cartType;
-  GameAnalytics.receipt = receipt;
-  GameAnalytics.signature = signature;
-  businessEvent();
+    callFunction("addBusinessEvent", [currency, amountInCents, itemType, itemId, cartType, receipt, signature]);
   }
 
-  private static function businessEvent()
+  public static function sendBusinessEventJs(currency:String, amountInCents:Int, itemType:String, itemId:String, cartType:String)
   {
-  #if ios
-  setBusinessEventStringsGA(currency,itemType,itemId,cartType,receipt);
-  setBusinessEventIntGA(amountInCents);
-  addBusinessEventGA();
-  #end
-  #if android
-  addBusinessEventGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addBusinessEvent",
-   "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
-    true);
-  var args:Array<Dynamic> = [currency, amountInCents, itemType, itemId, cartType, receipt, signature];
-  addBusinessEventGA(args);
-  #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("addBusinessEvent", amountInCents, currency, amount, itemType, itemId, cartType);
-    #end
+    callFunction("addBusinessEvent", [currency, amountInCents, itemType, itemId, cartType]);
   }
 
   public static function sendResourceEvent(flowType:GAFlowType, currency:String, amount:Int, itemType:String, itemId:String)
   {
-    GameAnalytics.flowType = flowType;
-    GameAnalytics.currency = currency;
-    GameAnalytics.amount = amount;
-    GameAnalytics.itemType = itemType;
-    GameAnalytics.itemId = itemId;
-    resourceEvent();
-  }
-
-  private static function resourceEvent()
-  {
-    #if ios
-    var ft:Int = cast flowType;
-    addResourceEventGA(ft, currency, amount, itemType, itemId);
-    #end
-    #if android
-    addResourceEventGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addResourceEvent", "(ILjava/lang/String;FLjava/lang/String;Ljava/lang/String;)V", true);
-    var args:Array<Dynamic> = [flowType, currency, amount, itemType, itemId];
-    addResourceEventGA(args);
-    #end
-    #if(html5)
-      // get flow string
-      var flow:String = GADef.flowToString(flowType);
-      GameAnalyticsJS.GameAnalytics("addResourceEvent", flow, currency, itemType, itemId);
-    #end
+    callFunction("addResourceEvent", [GADef.flowToNative(flowType), currency, amount, itemType, itemId]);
   }
 
   public static function sendProgressionEvent(status:GAProgression, progression01:String, ?progression02:String, ?progression03:String, score:Int=0)
   {
-    GameAnalytics.status = cast status; // Cast to Int
-    GameAnalytics.progression01 = progression01;
-
-#if html5
-    GameAnalytics.progression02 = progression02;
-    GameAnalytics.progression03 = progression03;
-#else
-    GameAnalytics.progression02 = (progression02 != null) ? progression02 : 'empty';
-    GameAnalytics.progression03 = (progression03 != null) ? progression03 : 'empty';
-#end
-
-    GameAnalytics.score = score;
-    progressionEvent();
+    #if (android || ios)
+    if(progression02 == null) progression02 = 'empty';
+    if(progression03 == null) progression03 = 'empty';
+    #end
+    callFunction("addProgressionEvent", [GADef.progressionToNative(status), progression01, progression02, progression03, score]);
   }
-
-  private static function progressionEvent()
-  {
-    #if ios
-    addProgressionEventGA(status, progression01, progression02, progression03, score);
-    #end
-    #if android
-    addProgressionEventGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addProgressionEvent", "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V", true);
-    var args:Array<Dynamic> = [status, progression01, progression02, progression03, score];
-    addProgressionEventGA(args);
-    #end
-    #if(html5)
-      trace("addProgressionEvent", status, progression01, progression02, progression03, score);
-      GameAnalyticsJS.GameAnalytics("addProgressionEvent",status, progression01, progression02, progression03, score);
-    #end
-    }
 
   public static function sendErrorEvent(severity:GAErrorSeverity, message:String)
   {
-    GameAnalytics.severity = severity;
-    GameAnalytics.message = message;
-    errorEvent();
-  }
-
-  private static function errorEvent()
-  {
-    #if ios
-      var sev:Int = cast severity;
-      addErrorEventGA(sev, message);
-    #end
-    #if android
-      var sev:Int = cast severity;
-      addErrorEventGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "addErrorEventWithSeverity", "(ILjava/lang/String;)V", true);
-      var args:Array<Dynamic> = [sev, message];
-      addErrorEventGA(args);
-    #end
-    #if(html5)
-      var sev:String = GADef.errorToString(severity);
-      GameAnalyticsJS.GameAnalytics("addErrorEvent", sev, message);
-    #end
+    callFunction("addErrorEvent", [GADef.errorToNative(severity), message]);
   }
 
   // SDK state
   private static function configureSdkVersion()
   {
-    var _version:String = "stencyl " + sdk_version;
-    #if ios
-    configureSdkVersionGA(_version);
-    #end
-    #if android
-    configureSdkVersionGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureSdkGameEngineVersion", "(Ljava/lang/String;)V", true);
-    configureSdkVersionGA([_version]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("configureSdkGameEngineVersion", _version);
-    #end
-  }
-
-  static macro function getDefine(key : String) : haxe.macro.Expr {
-    return macro $v{haxe.macro.Context.definedValue(key)};
+    callFunction("configureSdkGameEngineVersion", ["stencyl " + sdk_version]);
   }
 
   private static function configureEngineVersion()
@@ -724,7 +166,7 @@ class GameAnalytics {
     var engineVersion:String;
 
     #if(stencyl >= "3.5.0")
-    engineVersion = "stencyl " + getDefine("stencyl");
+    engineVersion = "stencyl " + @:privateAccess DefineMacro.getDefine("stencyl");
     #elseif ((openfl >= "3.3.8") && (openfl < "4.0.0"))
     engineVersion = "stencyl 3.4.0";
     #elseif ((openfl >= "3.3.2") && (openfl < "3.3.8"))
@@ -733,154 +175,148 @@ class GameAnalytics {
     engineVersion = "stencyl 3.2.0";
     #end
 
-    #if ios
-    configureEngineVersionGA(engineVersion);
-    #end
-    #if android
-    configureEngineVersionGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "configureGameEngineVersion", "(Ljava/lang/String;)V", true);
-    configureEngineVersionGA([engineVersion]);
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("configureGameEngineVersion", engineVersion);
-    #end
+    callFunction("configureGameEngineVersion", [engineVersion]);
   }
 
   //Manual session handling
-  public static function setEnableManualSessionHandling()
+  public static function setEnabledManualSessionHandling(enable:Bool)
   {
-    #if ios
-      setEnabledManualSessionHandlingGA();
-    #end
-    #if android
-      setEnabledManualSessionHandlingGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "enableManualSessionHandling", "()V", true);
-      setEnabledManualSessionHandlingGA();
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("setEnabledManualSessionHandling", true);
-    #end
+    callFunction("setEnabledManualSessionHandling", [enable]);
   }
 
   public static function startSession()
   {
-    #if ios
-      startSessionGA();
-    #end
-    #if android
-    startSessionGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "enableManualSessionHandling", "()V", true);
-      startSessionGA();
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("startSession");
-    #end
+    callFunction("startSession", []);
   }
 
   public static function endSession()
   {
-    #if ios
-      endSessionGA();
-    #end
-    #if android
-      endSessionGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "startSession", "()V", true);
-      endSessionGA();
-    #end
-    #if(html5)
-      GameAnalyticsJS.GameAnalytics("endSession");
-    #end
+    callFunction("endSession", []);
   }
 
   //Command Centre
-  public static function isCommandCenterReady()
+  public static function isCommandCenterReady():Bool
   {
-    #if ios
-      ready = isCommandCenterReadyGA();
-    #end
-    #if android
-      if(isCommandCenterReadyGA == null)
-      {
-      isCommandCenterReadyGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "isCommandCenterReady", "()V");
-      getIsCommandCenterReadyGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", "getIsCommandCenterReady", "()Z");
-      }
-      isCommandCenterReadyGA();
-      Sys.sleep(.05); // threads are parallel and we need to wait for UI thread in Android to finish the check
-      ready = getIsCommandCenterReadyGA();
-    #end
-    #if(html5)
-      ready = GameAnalyticsJS.GameAnalytics("isCommandCenterReady");
-    #end
-    return ready;
+    return callFunction("isCommandCenterReady", []);
   }
 
-  public static function getCommandCenterValueAsString(_key:String)
+  public static function getCommandCenterValueAsString(key:String):String
   {
-    GameAnalytics.configKey = _key;
-    configValue = _getCommandCenterValueAsString();
-    return configValue;
+    return callFunction("getCommandCenterValueAsString", [key]);
   }
 
-  private static function _getCommandCenterValueAsString()
+  public static function getCommandCenterValueAsStringWithDefVal(key:String, defaultValue:String):String
   {
-    var ret:String = "";
-    #if ios
-      ret = getCommandCenterValueAsStringGA(GameAnalytics.configKey);
+    #if html5
+    return callFunction("getCommandCenterValueAsString", [key, defaultValue]);
+    #else
+    return callFunction("getCommandCenterValueAsStringWithDefVal", [key, defaultValue]);
     #end
-    #if android
-      if(getCommandCenterValueAsStringGA == null)
-      {
-      getCommandCenterValueAsStringGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics","getCommandCenterValueAsString","(Ljava/lang/String;)V");
-      }
-      if(getFetchedConfigValueGA == null)
-      {
-      getFetchedConfigValueGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics","getFetchedConfigValue","()Ljava/lang/String;");
-      }
-      getCommandCenterValueAsStringGA(GameAnalytics.configKey);
-      Sys.sleep(.05); // threads are parallel and we need to wait for UI thread in Android to finish loading the config value
-      ret = getFetchedConfigValueGA();
-      trace(ret);
-    #end
-    #if(html5)
-      ready = GameAnalyticsJS.GameAnalytics("getCommandCenterValueAsString", GameAnalytics.configKey);
-    #end
-    return ret;
-  }
-
-  public static function getCommandCenterValueAsStringWithDefVal(_key:String, _defaultValue:String)
-  {
-    GameAnalytics.configKey = _key;
-    GameAnalytics.configDefaultValue = _defaultValue;
-    configValue = _getCommandCenterValueAsStringWithDefVal();
-    return configValue;
-  }
-
-  private static function _getCommandCenterValueAsStringWithDefVal()
-  {
-    var ret:String = "";
-    #if ios
-    ret = getCommandCenterValueAsStringWithDefValGA(GameAnalytics.configKey,GameAnalytics.configDefaultValue);
-    #end
-    #if android
-    if(getCommandCenterValueAsStringWithDefValGA == null)
-    {
-    getCommandCenterValueAsStringWithDefValGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics","getCommandCenterValueAsStringWithDefVal","(Ljava/lang/String;Ljava/lang/String;)V");
-    }
-    if(getFetchedConfigValueGA == null)
-    {
-    getFetchedConfigValueGA = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics","getFetchedConfigValue","()Ljava/lang/String;");
-    }
-    getCommandCenterValueAsStringWithDefValGA(GameAnalytics.configKey, GameAnalytics.configDefaultValue);
-    Sys.sleep(.05); // threads are parallel and we need to wait for UI thread in Android to finish loading the config value
-    ret = getFetchedConfigValueGA();
-    #end
-    #if(html5)
-      ready = cast GameAnalyticsJS.GameAnalytics("getCommandCenterValueAsString", GameAnalytics.configKey, GameAnalytics.configDefaultValue);
-    #end
-    return ret;
   }
 
   //Utility
   private static function printMessage(message:String)
   {
     #if ios
-      printGA(message);
+    callFunction("print", [message]);
     #end
   }
+
+  //helpers
+  #if (android || ios)
+  private static inline function stringToList(string:String):String
+  {
+    //for android/ios, turn into a list on the native side
+    return string;
+  }
+  #else
+  private static inline function stringToList(string:String):Array<String>
+  {
+    return string.split(",");
+  }
+  #end
+
+  //multi-platform glue
+
+  private static var functionPointerList:Map<String,Dynamic> = [];
+
+  private static function loadFunction(functionName:String, argCount:Int):Dynamic
+  {
+    #if android
+    if(functionPointerList[functionName] == null)
+    {
+      functionPointerList[functionName] = JNI.createStaticMethod("com/gameanalytics/MyGameAnalytics", functionName, ARG_TYPES[functionName], true);
+    }
+    #elseif ios
+    if(functionPointerList[functionName] == null)
+    {
+      var iosFunction = Lib.load("gameanalytics", functionName + "GA", argCount);
+      functionPointerList[functionName] = switch(argCount) {
+        case 0: function(args:Array<Dynamic>) iosFunction();
+        case 1: function(args:Array<Dynamic>) iosFunction(args[0]);
+        case 2: function(args:Array<Dynamic>) iosFunction(args[0], args[1]);
+        case 3: function(args:Array<Dynamic>) iosFunction(args[0], args[1], args[2]);
+        case 4: function(args:Array<Dynamic>) iosFunction(args[0], args[1], args[2], args[3]);
+        case 5: function(args:Array<Dynamic>) iosFunction(args[0], args[1], args[2], args[3], args[4]);
+        case 6: function(args:Array<Dynamic>) iosFunction(args[0], args[1], args[2], args[3], args[4], args[5]);
+        default: throw '$argCount-argument case not handled';
+      };
+    }
+    #elseif html5
+    if(functionPointerList[functionName] == null)
+    {
+      functionPointerList[functionName] = switch(argCount) {
+        case 0: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName);
+        case 1: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName, args[0]);
+        case 2: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName, args[0], args[1]);
+        case 3: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName, args[0], args[1], args[2]);
+        case 4: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName, args[0], args[1], args[2], args[3]);
+        case 5: function(args:Array<Dynamic>) GameAnalyticsJS.GameAnalytics(functionName, args[0], args[1], args[2], args[3], args[4]);
+        default: throw '$argCount-argument case not handled';
+      };
+    }
+    #end
+    return functionPointerList[functionName];
+  }
+
+  private static inline function callFunction(functionName:String, args:Array<Dynamic>):Dynamic
+  {
+    var func = functionPointerList[functionName];
+    if(func == null) func = loadFunction(functionName, args.length);
+    return func(args);
+  }
+
+  #if android
+  private static final ARG_TYPES = [
+    "initialize" => "(Ljava/lang/String;Ljava/lang/String;)V",
+    "setEnabledVerboseLog" => "(Z)V",
+    "setEnabledInfoLog" => "(Z)V",
+    "configureUserId" => "(Ljava/lang/String;)V",
+    "configureBuild" => "(Ljava/lang/String;)V",
+    "configureAvailableResourceCurrencies" => "(Ljava/lang/String;)V",
+    "configureAvailableResourceItemTypes" => "(Ljava/lang/String;)V",
+    "configureAvailableCustomDimensions01" => "(Ljava/lang/String;)V",
+    "configureAvailableCustomDimensions02" => "(Ljava/lang/String;)V",
+    "configureAvailableCustomDimensions03" => "(Ljava/lang/String;)V",
+    "setCustomDimension01" => "(Ljava/lang/String;)V",
+    "setCustomDimension02" => "(Ljava/lang/String;)V",
+    "setCustomDimension03" => "(Ljava/lang/String;)V",
+    "setGender" => "(I)V",
+    "setBirthYear" => "(I)V",
+    "addDesignEventWithEventId" => "(Ljava/lang/String;)V",
+    "addDesignEventWithAmount" => "(Ljava/lang/String;F)V",
+    "addBusinessEvent" => "(Ljava/lang/String;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+    "addResourceEvent" => "(ILjava/lang/String;FLjava/lang/String;Ljava/lang/String;)V",
+    "addProgressionEvent" => "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+    "addErrorEvent" => "(ILjava/lang/String;)V",
+    "configureSdkGameEngineVersion" => "(Ljava/lang/String;)V",
+    "configureGameEngineVersion" => "(Ljava/lang/String;)V",
+    "setEnabledManualSessionHandling" => "(Z)V",
+    "startSession" => "()V",
+    "endSession" => "()V",
+    "isCommandCenterReady" => "()Z",
+    "getCommandCenterValueAsString" => "(Ljava/lang/String;)Ljava/lang/String;",
+    "getCommandCenterValueAsStringWithDefVal" => "(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;"
+  ];
+  #end
 }

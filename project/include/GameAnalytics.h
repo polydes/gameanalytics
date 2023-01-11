@@ -9,8 +9,8 @@ using namespace std;
 namespace gameanalytics
 {
     void initializeWithGameKey(const char* title, const char* message);
-    void enableVerboseLog(const bool enable);
-    void enableInfoLog(const bool enable);
+    void setEnabledVerboseLog(const bool enable);
+    void setEnabledInfoLog(const bool enable);
     void configureBuild(const char* build);
     void configureUserId(const char* userId);
     void configureAvailableResourceCurrencies(const char* _currencies);
@@ -25,7 +25,7 @@ namespace gameanalytics
     void setBirthYear(const int birthYear);
 
     //Events
-    void addDesignEvent(const char* eventId);
+    void addDesignEventWithEventId(const char* eventId);
     void addDesignEventWithAmount(const char* eventID, const float amount);
     void addBusinessEvent(const char* currency, const int amount, const char* item, const char* itemId, const char* cartType, const char* receipt);
     void addResourceEvent(const int _flowType, const char* currency, const int amount, const char* itemType, const char* itemId);
@@ -37,7 +37,7 @@ namespace gameanalytics
     void configureEngineVersion(const char* engineVersion);
 
     //Manual session handling
-    void setEnabledManualSessionHandling();
+    void setEnabledManualSessionHandling(const bool enable);
     void startSession();
     void endSession();
 

@@ -38,11 +38,7 @@ public class MyGameAnalytics extends Extension
 {
   private static MyGameAnalytics instance = null;
 
-  private static boolean isCCready = false;
-  private static String configValue = "Nothing";
-  private static String configDefaultValue = "";
-
-  static public MyGameAnalytics getInstance()
+  public static MyGameAnalytics getInstance()
   {
     if(instance == null)
     {
@@ -51,7 +47,7 @@ public class MyGameAnalytics extends Extension
     return instance;
   }
 
-  public static void initialise(final String gameKey, final String secretKey)
+  public static void initialize(final String gameKey, final String secretKey)
   {
     mainActivity.runOnUiThread
 		(
@@ -65,7 +61,7 @@ public class MyGameAnalytics extends Extension
 		);
   }
 
-  public static void enableVerboseLog(final String enable)
+  public static void setEnabledVerboseLog(final boolean enable)
   {
     mainActivity.runOnUiThread
     (
@@ -73,20 +69,13 @@ public class MyGameAnalytics extends Extension
       {
         public void run()
         {
-          if(enable.equals("true"))
-          {
-            GameAnalytics.setEnabledVerboseLog(true);
-          }
-          if(enable.equals("false"))
-          {
-            GameAnalytics.setEnabledVerboseLog(false);
-          }
+          GameAnalytics.setEnabledVerboseLog(enable);
         }
       }
     );
   }
 
-  public static void enableInfoLog(final String enable)
+  public static void setEnabledInfoLog(final boolean enable)
   {
     mainActivity.runOnUiThread
     (
@@ -94,20 +83,13 @@ public class MyGameAnalytics extends Extension
       {
         public void run()
         {
-          if(enable.equals("true"))
-          {
-            GameAnalytics.setEnabledInfoLog(true);
-          }
-          if(enable.equals("false"))
-          {
-            GameAnalytics.setEnabledInfoLog(false);
-          }
+          GameAnalytics.setEnabledInfoLog(enable);
         }
       }
     );
   }
 
-  public static void configUserId(final String user_id)
+  public static void configureUserId(final String user_id)
   {
     mainActivity.runOnUiThread
     (
@@ -300,7 +282,7 @@ public class MyGameAnalytics extends Extension
     );
   }
 
-  public static void addDesignEventWithAmountGA(final String eventId, final float value)
+  public static void addDesignEventWithAmount(final String eventId, final float value)
   {
     final double dvar=(double)value;
     mainActivity.runOnUiThread
@@ -437,7 +419,7 @@ public class MyGameAnalytics extends Extension
   }
 
   //Manual session handling
-  public static void enableManualSessionHandling()
+  public static void setEnabledManualSessionHandling(final boolean enable)
   {
     mainActivity.runOnUiThread
     (
@@ -445,7 +427,7 @@ public class MyGameAnalytics extends Extension
       {
         public void run()
         {
-          GameAnalytics.setEnabledManualSessionHandling(true);
+          GameAnalytics.setEnabledManualSessionHandling(enable);
         }
       }
     );
@@ -480,56 +462,75 @@ public class MyGameAnalytics extends Extension
   }
 
   //Command center
-  static public void isCommandCenterReady()
+  public static boolean isCommandCenterReady()
   {
+    final Boolean[] result = {null};
     mainActivity.runOnUiThread
     (
       new Runnable()
       {
         public void run()
         {
-          isCCready = GameAnalytics.isCommandCenterReady();
+          synchronized(result)
+          {
+            result[0] = GameAnalytics.isCommandCenterReady();
+            result.notify();
+          }
         }
       }
     );
+    synchronized(result)
+    {
+      while(result[0] == null) result.wait();
+    }
+    return result[0];
   }
 
-  static public boolean getIsCommandCenterReady()
+  public static void getCommandCenterValueAsString(final String key)
   {
-    return isCCready;
-  }
-
-
-  static public void getCommandCenterValueAsString(final String key)
-  {
+    final String[] result = {null};
     mainActivity.runOnUiThread
     (
       new Runnable()
       {
         public void run()
         {
-          configValue = GameAnalytics.getCommandCenterValueAsString(key);
+          synchronized(result)
+          {
+            result[0] = GameAnalytics.getCommandCenterValueAsString(key);
+            result.notify();
+          }
         }
       }
     );
+    synchronized(result)
+    {
+      while(result[0] == null) result.wait();
+    }
+    return result[0];
   }
 
-  static public void getCommandCenterValueAsStringWithDefVal(final String key, final String defValue)
+  public static void getCommandCenterValueAsStringWithDefVal(final String key, final String defValue)
   {
+    final String[] result = {null};
     mainActivity.runOnUiThread
     (
       new Runnable()
       {
         public void run()
         {
-          configValue = GameAnalytics.getCommandCenterValueAsString(key, defValue);
+          synchronized(result)
+          {
+            result[0] = GameAnalytics.getCommandCenterValueAsString(key, defValue);
+            result.notify();
+          }
         }
       }
     );
-  }
-
-  static public String getFetchedConfigValue()
-  {
-    return configValue;
+    synchronized(result)
+    {
+      while(result[0] == null) result.wait();
+    }
+    return result[0];
   }
 }

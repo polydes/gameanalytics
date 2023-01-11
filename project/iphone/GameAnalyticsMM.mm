@@ -21,7 +21,7 @@ namespace gameanalytics
                              										 initWithUTF8String:secretKey]];
     }
 
-    void enableVerboseLog(const bool enable)
+    void setEnabledVerboseLog(const bool enable)
     {
       if(enable == true)
       {
@@ -33,7 +33,7 @@ namespace gameanalytics
       }
     }
 
-    void enableInfoLog(const bool enable)
+    void setEnabledInfoLog(const bool enable)
     {
       if(enable == true)
       {
@@ -122,7 +122,7 @@ namespace gameanalytics
     }
 
     //Events
-    void addDesignEvent(const char *eventId)
+    void addDesignEventWithEventId(const char *eventId)
     {
       [GameAnalytics addDesignEventWithEventId:[[NSString alloc]
                            initWithUTF8String:eventId]];
@@ -235,9 +235,16 @@ namespace gameanalytics
     }
 
     //Manual session handling
-    void setEnabledManualSessionHandling()
+    void setEnabledManualSessionHandling(const bool enable)
     {
-      [GameAnalytics setEnabledManualSessionHandling:YES];
+      if(enable)
+      {
+        [GameAnalytics setEnabledManualSessionHandling:YES];
+      }
+      else
+      {
+        [GameAnalytics setEnabledManualSessionHandling:NO];
+      }
     }
 
     void startSession()
