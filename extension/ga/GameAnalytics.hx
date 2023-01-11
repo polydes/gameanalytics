@@ -23,6 +23,11 @@ import extension.ga.js.GameAnalyticsJS;
 
 import extension.ga.GADef;
 
+#if ios
+@:buildXml('<include name="${haxelib:extension-ga}/project/Build.xml"/>')
+//This is just here to prevent the otherwise indirectly referenced native code from bring stripped at link time.
+@:cppFileCode('extern "C" int gameanalytics_register_prims();void extension_gameanalytics_link(){gameanalytics_register_prims();}')
+#end
 class GameAnalytics {
   //versioning
   private static inline var sdk_version:String = "3.0.1"; //GameAnalytics SDK version
