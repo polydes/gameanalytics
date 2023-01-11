@@ -10,7 +10,6 @@
 	<!--ANDROID-->
 	<section if="android">
 		<android extension="com.gameanalytics.MyGameAnalytics"/>
-		<classpath name="src" />
 		<dependency name="gameanalytics" path="dependencies/gameanalytics"/>
 	</section>
 
