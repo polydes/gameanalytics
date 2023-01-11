@@ -180,8 +180,8 @@
 		<fields>
 			<dropdown order="0">
 				<choices>
-					<c text="Source flow type" code="1"></c>
-					<c text="Sink flow type" code="2"></c>
+					<c text="Source flow type" code="extension.ga.GADef.GAFlowType.Source"></c>
+					<c text="Sink flow type" code="extension.ga.GADef.GAFlowType.Sink"></c>
 				</choices>
 			</dropdown>
 			<text order="1"></text>
@@ -191,13 +191,13 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-one-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1 and score: %2" code="extension.ga.GameAnalytics.sendProgressionEventWithOneProgressions(~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-one-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1 and score: %2" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
-					<c text="Start" code="1"></c>
-					<c text="Complete" code="2"></c>
-					<c text="Fail" code="3"></c>
+					<c text="Start" code="extension.ga.GADef.GAProgression.Started"></c>
+					<c text="Complete" code="extension.ga.GADef.GAProgression.Complete"></c>
+					<c text="Fail" code="extension.ga.GADef.GAProgression.Fail"></c>
 				</choices>
 			</dropdown>
 			<text order="1"></text>
@@ -205,13 +205,13 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-two-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2 and score: %3" code="extension.ga.GameAnalytics.sendProgressionEventWithTwoProgressions(~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-two-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2 and score: %3" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
-					<c text="Start" code="1"></c>
-					<c text="Complete" code="2"></c>
-					<c text="Fail" code="3"></c>
+					<c text="Start" code="extension.ga.GADef.GAProgression.Started"></c>
+					<c text="Complete" code="extension.ga.GADef.GAProgression.Complete"></c>
+					<c text="Fail" code="extension.ga.GADef.GAProgression.Fail"></c>
 				</choices>
 			</dropdown>
 			<text order="1"></text>
@@ -220,13 +220,13 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-three-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2, progression03: %3 and score: %4" code="extension.ga.GameAnalytics.sendProgressionEventWithThreeProgressions(~,~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-three-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2, progression03: %3 and score: %4" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
-					<c text="Start" code="1"></c>
-					<c text="Complete" code="2"></c>
-					<c text="Fail" code="3"></c>
+					<c text="Start" code="extension.ga.GADef.GAProgression.Started"></c>
+					<c text="Complete" code="extension.ga.GADef.GAProgression.Complete"></c>
+					<c text="Fail" code="extension.ga.GADef.GAProgression.Fail"></c>
 				</choices>
 			</dropdown>
 			<text order="1"></text>
@@ -240,11 +240,11 @@
 		<fields>
 			<dropdown order="0">
 				<choices>
-					<c text="Debug" code="1"></c>
-					<c text="Info" code="2"></c>
-					<c text="Warning" code="3"></c>
-					<c text="Error" code="4"></c>
-					<c text="Critical" code="5"></c>
+					<c text="Debug" code="extension.ga.GADef.GAErrorSeverity.Debug"></c>
+					<c text="Info" code="extension.ga.GADef.GAErrorSeverity.Info"></c>
+					<c text="Warning" code="extension.ga.GADef.GAErrorSeverity.Warning"></c>
+					<c text="Error" code="extension.ga.GADef.GAErrorSeverity.Error"></c>
+					<c text="Critical" code="extension.ga.GADef.GAErrorSeverity.Critical"></c>
 				</choices>
 			</dropdown>
 			<text order="1"></text>
