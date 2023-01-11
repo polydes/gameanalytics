@@ -6,6 +6,8 @@
 
 <error value="The ${id} extension only provides native code for iOS" unless="ios" />
 
+<cocoapod name="GA-SDK-IOS" version="3.0.1" />
+
 <files id="${id}-dependencies">
   <depend files="hxcpp-depends" />
   <depend name="${this_dir}/Build.xml" dateOnly="true" />
@@ -23,8 +25,7 @@
   <depend files="${id}-dependencies" />
   <cache value="1" project="${id}" asLibrary="true" />
   <compilerflag value="-I${this_dir}/include" />
-  <compilerflag value="-F${this_dir}/../frameworks/" />
-  <compilerflag name="-framework" value="GameAnalytics" />
+  <compilerflag value="-F${cocoapod:GA-SDK-IOS.frameworks.GameAnalytics.dir}" />
   <file name="iphone/GameAnalyticsMM.mm" />
 </files>
 
