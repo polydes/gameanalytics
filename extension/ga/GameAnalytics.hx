@@ -34,6 +34,14 @@ class GameAnalytics
     callFunction("initialize", [gameKey, secretKey]);
   }
 
+  #if html5
+  //todo: implement for other platforms
+  public static function setEnabledEventSubmission(enable:Bool)
+  {
+    callFunction("setEnabledEventSubmission", [enable]);
+  }
+  #end
+
   public static function setEnabledVerboseLog(enable:Bool)
   {
     callFunction("setEnabledVerboseLog", [enable]);

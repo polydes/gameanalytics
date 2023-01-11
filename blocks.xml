@@ -23,6 +23,17 @@
 		</fields>
 	</block>
 
+	<block tag="enable-event-submission-gameanalytics" spec="Enable event submission GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnabledEventSubmission(~);" type="action" color="charcoal" returns="void">
+		<fields>
+			<dropdown order="0">
+				<choices>
+					<c text="true" code="true"></c>
+					<c text="false" code="false"></c>
+				</choices>
+			</dropdown>
+		</fields>
+	</block>
+
 	<block tag="enable-verbose-gameanalytics" spec="Enable verbose log GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnabledVerboseLog(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<dropdown order="0">
