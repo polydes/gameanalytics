@@ -29,8 +29,8 @@ class GameAnalytics
 
   public static function initialize(gameKey:String, secretKey:String)
   {
-    configureSdkVersion();
-    configureEngineVersion();
+    /*configureSdkVersion();
+    configureEngineVersion();*/
     callFunction("initialize", [gameKey, secretKey]);
   }
 
