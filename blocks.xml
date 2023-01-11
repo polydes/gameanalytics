@@ -2,28 +2,28 @@
 <palette>
 
 	<!-- Initialize and settings -->
-	<block tag="initialise-gameanalytics-ios" spec="Initialize GameAnalytics with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
+	<block tag="initialise-gameanalytics-ios" spec="[c:gasdk] Initialize with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
 		<fields>
 			<text order="0"></text>
 			<text order="1"></text>
 		</fields>
 	</block>
 
-	<block tag="initialise-gameanalytics-android" spec="Initialize GameAnalytics with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
+	<block tag="initialise-gameanalytics-android" spec="[c:gasdk] Initialize with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
 		<fields>
 			<text order="0"></text>
 			<text order="1"></text>
 		</fields>
 	</block>
 
-	<block tag="initialise-gameanalytics" spec="Initialize GameAnalytics with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void">
+	<block tag="initialise-gameanalytics" spec="[c:gasdk] Initialize with gameKey: %0 and secretKey: %1" code="extension.ga.GameAnalytics.initialize(~,~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 			<text order="1"></text>
 		</fields>
 	</block>
 
-	<block tag="enable-event-submission-gameanalytics" spec="Enable event submission GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnabledEventSubmission(~);" type="action" color="charcoal" returns="void">
+	<block tag="enable-event-submission-gameanalytics" spec="[c:gasdk] Enable event submission: %0" code="extension.ga.GameAnalytics.setEnabledEventSubmission(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -34,7 +34,7 @@
 		</fields>
 	</block>
 
-	<block tag="enable-verbose-gameanalytics" spec="Enable verbose log GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnabledVerboseLog(~);" type="action" color="charcoal" returns="void">
+	<block tag="enable-verbose-gameanalytics" spec="[c:gasdk] Enable verbose log: %0" code="extension.ga.GameAnalytics.setEnabledVerboseLog(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -45,7 +45,7 @@
 		</fields>
 	</block>
 
-	<block tag="enable-info-gameanalytics" spec="Enable info log GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnabledInfoLog(~);" type="action" color="charcoal" returns="void">
+	<block tag="enable-info-gameanalytics" spec="[c:gasdk] Enable info log: %0" code="extension.ga.GameAnalytics.setEnabledInfoLog(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -56,105 +56,105 @@
 		</fields>
 	</block>
 
-	<block tag="configure-build-ios-gameanalytics" spec="Configure build ID GameAnalytics: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
+	<block tag="configure-build-ios-gameanalytics" spec="[c:gasdk] Configure build ID: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-build-android-gameanalytics" spec="Configure build ID GameAnalytics: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
+	<block tag="configure-build-android-gameanalytics" spec="[c:gasdk] Configure build ID: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-build-gameanalytics" spec="Configure build ID GameAnalytics: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-build-gameanalytics" spec="[c:gasdk] Configure build ID: %0" code="extension.ga.GameAnalytics.configureBuild(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-user-id-gameanalytics" spec="Configure user ID GameAnalytics: %0" code="extension.ga.GameAnalytics.configureUserId(~);" type="action" color="charcoal" help="GameAnalytics already handles very well user IDs without using this setting. Use it only if it is needed." returns="void">
+	<block tag="configure-user-id-gameanalytics" spec="[c:gasdk] Configure user ID: %0" code="extension.ga.GameAnalytics.configureUserId(~);" type="action" color="charcoal" help="GameAnalytics already handles very well user IDs without using this setting. Use it only if it is needed." returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-resource-currencies-gameanalytics" spec="Configure resource currencies GameAnalytics: %0" code="extension.ga.GameAnalytics.configureAvailableResourceCurrencies(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-resource-currencies-gameanalytics" spec="[c:gasdk] Configure resource currencies: %0" code="extension.ga.GameAnalytics.configureAvailableResourceCurrencies(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-resource-item-types-gameanalytics" spec="Configure resource item types GameAnalytics: %0" code="extension.ga.GameAnalytics.configureAvailableResourceItemTypes(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-resource-item-types-gameanalytics" spec="[c:gasdk] Configure resource item types: %0" code="extension.ga.GameAnalytics.configureAvailableResourceItemTypes(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-custom-dimensions-01-gameanalytics" spec="Configure custom dimensions 01 GameAnalytics: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions01(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-custom-dimensions-01-gameanalytics" spec="[c:gasdk] Configure custom dimensions 01: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions01(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-custom-dimensions-02-gameanalytics" spec="Configure custom dimensions 02 GameAnalytics: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions02(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-custom-dimensions-02-gameanalytics" spec="[c:gasdk] Configure custom dimensions 02: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions02(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="configure-custom-dimensions-03-gameanalytics" spec="Configure custom dimensions 03 GameAnalytics: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions03(~);" type="action" color="charcoal" returns="void">
+	<block tag="configure-custom-dimensions-03-gameanalytics" spec="[c:gasdk] Configure custom dimensions 03: %0" code="extension.ga.GameAnalytics.configureAvailableCustomDimensions03(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="custom01-gameanalytics" spec="Set custom dimension 01 GameAnalytics: %0" code="extension.ga.GameAnalytics.setCustomDimension01(~);" type="action" color="charcoal" returns="void">
+	<block tag="custom01-gameanalytics" spec="[c:gasdk] Set custom dimension 01: %0" code="extension.ga.GameAnalytics.setCustomDimension01(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="custom02-gameanalytics" spec="Set custom dimension 02 GameAnalytics: %0" code="extension.ga.GameAnalytics.setCustomDimension02(~);" type="action" color="charcoal" returns="void">
+	<block tag="custom02-gameanalytics" spec="[c:gasdk] Set custom dimension 02: %0" code="extension.ga.GameAnalytics.setCustomDimension02(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="custom03-gameanalytics" spec="Set custom dimension 03 GameAnalytics: %0" code="extension.ga.GameAnalytics.setCustomDimension03(~);" type="action" color="charcoal" returns="void">
+	<block tag="custom03-gameanalytics" spec="[c:gasdk] Set custom dimension 03: %0" code="extension.ga.GameAnalytics.setCustomDimension03(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="gender-gameanalytics" spec="Set gender GameAnalytics: %0" code="extension.ga.GameAnalytics.setGender(~);" type="action" color="charcoal" returns="void" deprecated="true">
+	<block tag="gender-gameanalytics" spec="[c:gasdk] Set gender: %0" code="extension.ga.GameAnalytics.setGender(~);" type="action" color="charcoal" returns="void" deprecated="true">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="birth-year-gameanalytics" spec="Set birth year GameAnalytics: %0" code="extension.ga.GameAnalytics.setBirthYear(~);" type="action" color="charcoal" returns="void" deprecated="true">
+	<block tag="birth-year-gameanalytics" spec="[c:gasdk] Set birth year: %0" code="extension.ga.GameAnalytics.setBirthYear(~);" type="action" color="charcoal" returns="void" deprecated="true">
 		<fields>
 			<int order="0"></int>
 		</fields>
 	</block>
 
 	<!-- Events -->
-	<block tag="design-event-gameanalytics" spec="Create analytics Design event with ID: %0" code="extension.ga.GameAnalytics.sendDesignEvent(~);" type="action" color="green" returns="void">
+	<block tag="design-event-gameanalytics" spec="[c:gasdk] Create analytics Design event with ID: %0" code="extension.ga.GameAnalytics.sendDesignEvent(~);" type="action" color="green" returns="void">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="design-event-with-amount-gameanalytics" spec="Create Design event with ID: %0 and amount %1" code="extension.ga.GameAnalytics.sendDesignEventWithAmount(~,~);" type="action" color="green" returns="void">
+	<block tag="design-event-with-amount-gameanalytics" spec="[c:gasdk] Create Design event with ID: %0 and amount %1" code="extension.ga.GameAnalytics.sendDesignEventWithAmount(~,~);" type="action" color="green" returns="void">
 		<fields>
 			<text order="0"></text>
 			<number order="1"></number>
 		</fields>
 	</block>
 
-	<block tag="business-event-js-gameanalytics" spec="Create JS Business event with currency: %0 amount: %1 item type: %2 item ID: %3 and cart type: %4" code="extension.ga.GameAnalytics.sendBusinessEventJs(~,~,~,~,~);" type="action" color="lime" returns="void">
+	<block tag="business-event-js-gameanalytics" spec="[c:gasdk] Create JS Business event with currency: %0 amount: %1 item type: %2 item ID: %3 and cart type: %4" code="extension.ga.GameAnalytics.sendBusinessEventJs(~,~,~,~,~);" type="action" color="lime" returns="void">
 		<fields>
 			<text order="0"></text>
 			<int order="1"></int>
@@ -164,7 +164,7 @@
 		</fields>
 	</block>
 
-	<block tag="business-event-ios-gameanalytics" spec="Create iOS Business event with currency: %0 amount: %1 item type: %2 item ID: %3 cart type: %4 and receipt: %5" code="extension.ga.GameAnalytics.sendBusinessEventIOS(~,~,~,~,~,~);" type="action" color="lime" returns="void">
+	<block tag="business-event-ios-gameanalytics" spec="[c:gasdk] Create iOS Business event with currency: %0 amount: %1 item type: %2 item ID: %3 cart type: %4 and receipt: %5" code="extension.ga.GameAnalytics.sendBusinessEventIOS(~,~,~,~,~,~);" type="action" color="lime" returns="void">
 		<fields>
 			<text order="0"></text>
 			<int order="1"></int>
@@ -175,7 +175,7 @@
 		</fields>
 	</block>
 
-	<block tag="business-event-android-gameanalytics" spec="Create Android Business event with currency: %0 amount: %1 item type: %2 item ID: %3 cart type: %4 receipt: %5 and signature: %6" code="extension.ga.GameAnalytics.sendBusinessEventAndroid(~,~,~,~,~,~,~);" type="action" color="lime" returns="void">
+	<block tag="business-event-android-gameanalytics" spec="[c:gasdk] Create Android Business event with currency: %0 amount: %1 item type: %2 item ID: %3 cart type: %4 receipt: %5 and signature: %6" code="extension.ga.GameAnalytics.sendBusinessEventAndroid(~,~,~,~,~,~,~);" type="action" color="lime" returns="void">
 		<fields>
 			<text order="0"></text>
 			<int order="1"></int>
@@ -187,7 +187,7 @@
 		</fields>
 	</block>
 
-	<block tag="resource-event-gameanalytics" spec="Create Resource event with flow type: %0, currency: %1, amount: %2, item type: %3, item ID: %4" code="extension.ga.GameAnalytics.sendResourceEvent(~,~,~,~,~);" type="action" color="green" returns="void">
+	<block tag="resource-event-gameanalytics" spec="[c:gasdk] Create Resource event with flow type: %0, currency: %1, amount: %2, item type: %3, item ID: %4" code="extension.ga.GameAnalytics.sendResourceEvent(~,~,~,~,~);" type="action" color="green" returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -202,7 +202,7 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-one-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1 and score: %2" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-one-progression-gameanalytics" spec="[c:gasdk] Create Progression event with status: %0, progression01: %1 and score: %2" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -216,7 +216,7 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-two-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2 and score: %3" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-two-progression-gameanalytics" spec="[c:gasdk] Create Progression event with status: %0, progression01: %1, progression02: %2 and score: %3" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -231,7 +231,7 @@
 		</fields>
 	</block>
 
-	<block tag="progression-event-with-three-progression-gameanalytics" spec="Create Progression event with status: %0, progression01: %1, progression02: %2, progression03: %3 and score: %4" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
+	<block tag="progression-event-with-three-progression-gameanalytics" spec="[c:gasdk] Create Progression event with status: %0, progression01: %1, progression02: %2, progression03: %3 and score: %4" code="extension.ga.GameAnalytics.sendProgressionEvent(~,~,~,~,~);" type="action" color="green" help="If there is no need of using 'score' then this field should be set to 0." returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -247,7 +247,7 @@
 		</fields>
 	</block>
 
-	<block tag="error-event-gameanalytics" spec="Create Error event with severity: %0 and message: %1" code="extension.ga.GameAnalytics.sendErrorEvent(~,~);" type="action" color="red" returns="void">
+	<block tag="error-event-gameanalytics" spec="[c:gasdk] Create Error event with severity: %0 and message: %1" code="extension.ga.GameAnalytics.sendErrorEvent(~,~);" type="action" color="red" returns="void">
 		<fields>
 			<dropdown order="0">
 				<choices>
@@ -263,32 +263,32 @@
 	</block>
 
 	<!-- Manual session handling -->
-	<block tag="set-enabled-manual-session-handling-gameanalytics" spec="Enable manual session handling GameAnalytics" code="extension.ga.GameAnalytics.setEnableManualSessionHandling();" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
+	<block tag="set-enabled-manual-session-handling-gameanalytics" spec="[c:gasdk] Enable manual session handling" code="extension.ga.GameAnalytics.setEnableManualSessionHandling();" type="action" color="charcoal" returns="void" deprecated="true" hidden="true">
 	</block>
 
-	<block tag="set-enabled-value-manual-session-handling-gameanalytics" spec="Enable manual session handling GameAnalytics: %0" code="extension.ga.GameAnalytics.setEnableManualSessionHandling(~);" type="action" color="charcoal" returns="void">
+	<block tag="set-enabled-value-manual-session-handling-gameanalytics" spec="[c:gasdk] Enable manual session handling: %0" code="extension.ga.GameAnalytics.setEnableManualSessionHandling(~);" type="action" color="charcoal" returns="void">
 		<fields>
 			<boolean order="0"></boolean>
 		</fields>
 	</block>
 
-	<block tag="start-session-gameanalytics" spec="Start session GameAnalytics" code="extension.ga.GameAnalytics.startSession();" type="action" color="charcoal" help="This can be used only if manual session handling is enabled (not recommended)." returns="void">
+	<block tag="start-session-gameanalytics" spec="[c:gasdk] Start session" code="extension.ga.GameAnalytics.startSession();" type="action" color="charcoal" help="This can be used only if manual session handling is enabled (not recommended)." returns="void">
 	</block>
 
-	<block tag="end-session-gameanalytics" spec="End session GameAnalytics" code="extension.ga.GameAnalytics.endSession();" type="action" color="charcoal" help="This can be used only if manual session handling is enabled (not recommended)." returns="void">
+	<block tag="end-session-gameanalytics" spec="[c:gasdk] End session" code="extension.ga.GameAnalytics.endSession();" type="action" color="charcoal" help="This can be used only if manual session handling is enabled (not recommended)." returns="void">
 	</block>
 
 	<!-- Command Center -->
-	<block tag="is-command-center-ready-gameanalytics" spec="Is Command Center ready GameAnalytics" code="extension.ga.GameAnalytics.isCommandCenterReady()" type="normal" color="charcoal" help="Check if the Command Center has finished fetching the remote configs from GameAnalytics" returns="boolean">
+	<block tag="is-command-center-ready-gameanalytics" spec="[c:gasdk] Is Command Center ready" code="extension.ga.GameAnalytics.isCommandCenterReady()" type="normal" color="charcoal" help="Check if the Command Center has finished fetching the remote configs from GameAnalytics" returns="boolean">
 	</block>
 
-	<block tag="get-command-center-value-gameanalytics" spec="Get Command Center value GameAnalytics with key: %0" code="extension.ga.GameAnalytics.getCommandCenterValueAsString(~)" type="normal" color="charcoal" help="Retrieve a remote config by key from GameAnalytics. Check if Command Center is ready when using." returns="text">
+	<block tag="get-command-center-value-gameanalytics" spec="[c:gasdk] Get Command Center value with key: %0" code="extension.ga.GameAnalytics.getCommandCenterValueAsString(~)" type="normal" color="charcoal" help="Retrieve a remote config by key from GameAnalytics. Check if Command Center is ready when using." returns="text">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="get-command-center-value-with-default-value-gameanalytics" spec="Get Command Center value GameAnalytics with key: %0 and default value: %1" code="extension.ga.GameAnalytics.getCommandCenterValueAsStringWithDefVal(~,~)" type="normal" color="charcoal" help="Retrieve a remote config by key from GameAnalytics. If there is no config for the given key, the default value is returned. Check if Command Center is ready when using." returns="text">
+	<block tag="get-command-center-value-with-default-value-gameanalytics" spec="[c:gasdk] Get Command Center value with key: %0 and default value: %1" code="extension.ga.GameAnalytics.getCommandCenterValueAsStringWithDefVal(~,~)" type="normal" color="charcoal" help="Retrieve a remote config by key from GameAnalytics. If there is no config for the given key, the default value is returned. Check if Command Center is ready when using." returns="text">
 		<fields>
 			<text order="0"></text>
 			<text order="1"></text>
