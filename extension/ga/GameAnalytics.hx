@@ -712,12 +712,16 @@ class GameAnalytics {
     #end
   }
 
+  static macro function getDefine(key : String) : haxe.macro.Expr {
+    return macro $v{haxe.macro.Context.definedValue(key)};
+  }
+
   private static function configureEngineVersion()
   {
     var engineVersion:String;
 
-    #if(openfl >= "4.0.0")
-    engineVersion = "stencyl 3.5.0";
+    #if(stencyl >= "3.5.0")
+    engineVersion = "stencyl " + getDefine("stencyl");
     #elseif ((openfl >= "3.3.8") && (openfl < "4.0.0"))
     engineVersion = "stencyl 3.4.0";
     #elseif ((openfl >= "3.3.2") && (openfl < "3.3.8"))
