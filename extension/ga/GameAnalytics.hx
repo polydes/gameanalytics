@@ -215,6 +215,9 @@ class GameAnalytics {
 
   private static function initialiseWithGameKeyJS()
   {
+    configureSdkVersion();
+    configureEngineVersion();
+
     #if(html5)
         GameAnalyticsJS.GameAnalytics("initialize",
             gameKey,
