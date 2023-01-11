@@ -117,13 +117,13 @@
 		</fields>
 	</block>
 
-	<block tag="gender-gameanalytics" spec="Set gender GameAnalytics: %0" code="GameAnalytics.setGender(~);" type="action" color="charcoal" returns="void">
+	<block tag="gender-gameanalytics" spec="Set gender GameAnalytics: %0" code="GameAnalytics.setGender(~);" type="action" color="charcoal" returns="void" deprecated="true">
 		<fields>
 			<text order="0"></text>
 		</fields>
 	</block>
 
-	<block tag="birth-year-gameanalytics" spec="Set birth year GameAnalytics: %0" code="GameAnalytics.setBirthYear(~);" type="action" color="charcoal" returns="void">
+	<block tag="birth-year-gameanalytics" spec="Set birth year GameAnalytics: %0" code="GameAnalytics.setBirthYear(~);" type="action" color="charcoal" returns="void" deprecated="true">
 		<fields>
 			<int order="0"></int>
 		</fields>
