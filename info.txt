@@ -1,7 +1,8 @@
+id=com.gameanalytics
 name=GameAnalytics
 description=Free analytics built for games, designed to help you grow
-author=Cristian Bercu
-website=https://gameanalytics.com/
-version=1.0.0
+author=Cristian Bercu, Justin Espedal
+website=http://www.polydes.com/repo/engine/com.gameanalytics
+version=4.0.0
 compatibility=all
 dependencies=stencyl-4.1.0
