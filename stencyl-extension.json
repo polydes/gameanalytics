@@ -1,0 +1,19 @@
+{
+  "group": "com.polydes",
+  "id": "com.gameanalytics",
+  "name": "GameAnalytics",
+  "tags": ["analytics"],
+  "description": "Free analytics built for games, designed to help you grow",
+  "type": "game",
+  "author": "Cristian Bercu, Justin Espedal",
+  "website": "https://www.polydes.com/repo/engine/com.gameanalytics",
+  "repository": "https://www.polydes.com/repo",
+  "target": "stencyl-4.2.0",
+  "version": "4.1.0",
+
+  "icon": "icon.png",
+
+  "engine": {
+    "compatibility": "all"
+  }
+}

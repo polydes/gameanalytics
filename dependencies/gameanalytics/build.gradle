@@ -2,14 +2,19 @@ buildscript {
     repositories {
         maven { url 'http://maven.gameanalytics.com/release'; }
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:::ANDROID_GRADLE_PLUGIN::'
+    }
 }
 
-apply plugin: 'android-library'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
     
+    namespace 'org.haxe.extension.gameanalytics'
+
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -25,6 +30,6 @@ android {
 
 
 dependencies {
+    api project(':deps:extension-api')
     implementation 'com.gameanalytics.sdk:gameanalytics-android:4.4.0'
-    implementation project(':deps:extension-api')
 }
