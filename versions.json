@@ -1,0 +1,11 @@
+{
+  "versions":
+  [
+    {
+      "date": "08/05/2023",
+      "changes": "First release in the polydes repository.",
+      "version": "4.0.0",
+      "dependencies": "stencyl-4.1.0"
+    }
+  ]
+}
