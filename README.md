@@ -27,27 +27,3 @@ If you have any issues or feedback regarding the SDK, please contact our friendl
 >   
 > **JAVASCRIPT:**   
 > SDK V3.1.2
-
-Changelog
----------
-<!--(CHANGELOG_TOP)-->
-**3.0.1**
-* added missing blocks.xml
-
-**3.0.0**
-* Forked of GA Stencyl
-* Adpatation of SDK to Haxelib
-* Updated Android SDK
-* Added Javascript bindings
-
-**2.1.0**
-* included compatibility with x86_64 simulator (iOS)
-
-**2.0.0**
-* added Command Center functionality
-
-**1.0.1**
-* fixed compilation issue (iOS)
-
-**1.0.0**
-* initial release
